@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a th:href="@{/}">Upload new file</a>
+<form th:action="@{/files/date}">
+    Date:<input type="date" name="date" th:value="${date}">
+    <input type="submit" value="Search By Date">
+</form>
+
+<form th:action="@{/files/customer}">
+    Customer name:<input type="text" name="customer" th:value="${customer}">
+    <input type="submit" value="Search By Customer Name">
+</form>
+
+<form th:action="@{/files/type}">
+    Type:<input type="text" name="type" th:value="${type}">
+    <input type="submit" value="Search By Type">
+</form>
+<table>
+    <tr>
+
+        <th:block th:each="file:${files}">
+            <td><a th:text="${file}" th:href="@{/files/{filename}(filename=${file})}"></a></td>
+            <td>
+                <form th:action="@{/files/delete/{filename}(filename=${file})}" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/files/update/{filename}(filename=${file})}" method="post"
+                      enctype="multipart/form-data">
+                    <input type="file" name="file" multiple>
+                    <input type="submit" value="Update File">
+                </form>
+            </td>
+
+        </th:block>
+
+
+    </tr>
+</table>
+</body>
+</html>
