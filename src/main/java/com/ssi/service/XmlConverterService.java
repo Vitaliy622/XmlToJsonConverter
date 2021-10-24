@@ -23,4 +23,8 @@ public interface XmlConverterService {
     List<String> getFilesByType(String name);
 
     List<String> getAllFiles() throws IOException;
+
+    void init() throws IOException;
+
+    void deleteAll();
 }

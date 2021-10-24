@@ -5,12 +5,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.json.XML;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +39,16 @@ public class XmlConverterServiceImpl implements XmlConverterService {
         } catch (FileAlreadyExistException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        FileSystemUtils.deleteRecursively(Path.of(UPLOAD_DIRECTORY).toFile());
+    }
+
+    @Override
+    public void init() throws IOException {
+        Files.createDirectory(Path.of(UPLOAD_DIRECTORY));
     }
 
     public boolean checkIfFileExist(File file) throws FileAlreadyExistException {
